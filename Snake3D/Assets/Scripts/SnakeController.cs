@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class SnakeController : MonoBehaviour {
 
+    public LinkedList<GameObject> Entities
+    {
+        get
+        {
+            return entities;
+        }
+    }
+
     [SerializeField] GameObject snakeEntity;
     [SerializeField] int framesBetweenMoves;
     int frameCounter;
@@ -121,19 +129,26 @@ public class SnakeController : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Expand()
     {
-        if (other.gameObject.tag != "Player")
-        {
-            print("hit shit");
-            GameObject newTail = Instantiate(snakeEntity, transform.position, transform.rotation);
-            newTail.transform.parent = gameObject.transform;
-            entities.AddLast(newTail);
-            Destroy(other.gameObject);
-        }
-        else
-        {
-            print("Die");
-        }
+        GameObject newTail = Instantiate(snakeEntity, transform.position, transform.rotation);
+        newTail.transform.parent = gameObject.transform;
+        entities.AddLast(newTail);
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag != "Player")
+    //    {
+    //        print("hit shit");
+    //        GameObject newTail = Instantiate(snakeEntity, transform.position, transform.rotation);
+    //        newTail.transform.parent = gameObject.transform;
+    //        entities.AddLast(newTail);
+    //        Destroy(other.gameObject);
+    //    }
+    //    else
+    //    {
+    //        print("Die");
+    //    }
+    //}
 }
