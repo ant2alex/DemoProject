@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FoodPrefab: {fileID: 1803591228268868, guid: 5a93a910f59318743aee15aca0c317af, type: 2}
-  topBorder: {fileID: 4238158921905952, guid: bef924c89df856c4f8d8e968339d68b5, type: 2}
+  topBorder: {fileID: 0}
   botBorder: {fileID: 4742571603803544, guid: c51ec72171df33b4ebb979690dcdb402, type: 2}
   leftBorder: {fileID: 4196931686226226, guid: e5871099ca02dcb479e358d401fd79ca, type: 2}
   rightBorder: {fileID: 4793337468687862, guid: 0a787aab6756a6345bdfb4cbb445fe40,

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class SnakeController : MonoBehaviour {
 
     [SerializeField] GameObject snakeEntity;
     [SerializeField] int framesBetweenMoves;
@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     bool bGrow = false;
 
     LinkedList<GameObject> entities = new LinkedList<GameObject>();
-    
+
     public enum Direction
     {
         left,
@@ -24,13 +24,63 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake()
     {
-        entities.AddFirst(gameObject);
-        frameCounter = framesBetweenMoves;
+        if (transform.childCount <= 0)
+        {
+            GameObject newPart = Instantiate(snakeEntity, transform.position, transform.rotation);
+            newPart.transform.parent = gameObject.transform;
+            entities.AddFirst(newPart);
+        }
+        else
+        {
+            entities.AddFirst(transform.GetChild(0).gameObject);
+        }
     }
-
+    
     private void Update()
     {
-        ReadInput();
+        if (frameCounter <= 0)
+        {
+            // Add a new entity as a head
+            GameObject newHead = Instantiate(snakeEntity, transform.position, transform.rotation);
+            newHead.transform.parent = gameObject.transform;
+            entities.AddFirst(newHead);
+
+            // Remove the last tail entity
+            Destroy(entities.Last.Value.gameObject);
+            entities.RemoveLast();
+
+            Vector3 oldPos = entities.Last.Value.gameObject.transform.position;
+            switch (playerDirection)
+            {
+                case Direction.up:
+                    newHead.transform.position += Vector3.forward;
+                    break;
+
+                case Direction.down:
+                    newHead.transform.position += Vector3.back;
+                    break;
+
+                case Direction.left:
+                    newHead.transform.position += Vector3.left;
+                    break;
+
+                case Direction.right:
+                    newHead.transform.position += Vector3.right;
+                    break;
+            }
+            if (bGrow)
+            {
+                GameObject newTail = Instantiate(snakeEntity, new Vector3(oldPos.x - 1, 0f, oldPos.z), entities.Last.Value.transform.rotation);
+                newTail.transform.parent = gameObject.transform;
+                entities.AddLast(newTail);
+                bGrow = false;
+            }
+            frameCounter = framesBetweenMoves;
+        }
+        else
+        {
+            frameCounter--;
+        }
     }
 
     private void ReadInput()
@@ -79,58 +129,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void LateUpdate()
-    {
-        if (frameCounter <= 0)
-        {   
-            // Add a new entity as a head
-            GameObject newHead = Instantiate(snakeEntity, entities.First.Value.transform.position, entities.First.Value.transform.rotation);
-            entities.AddFirst(newHead);
-
-            // Remove the last tail entity
-            Destroy(entities.Last.Value.gameObject);
-            entities.RemoveLast();
-
-            Vector3 oldPos = entities.Last.Value.gameObject.transform.position;
-            switch (playerDirection)
-            {
-                case Direction.up:
-                    newHead.transform.position += Vector3.forward;
-                    break;
-
-                case Direction.down:
-                    newHead.transform.position += Vector3.back;
-                    break;
-
-                case Direction.left:
-                    newHead.transform.position += Vector3.left;
-                    break;
-
-                case Direction.right:
-                    newHead.transform.position += Vector3.right;
-                    break;
-            }
-            if (bGrow)
-            {
-                GameObject newTail = Instantiate(snakeEntity, new Vector3(oldPos.x - 1, 0f, oldPos.z), entities.Last.Value.transform.rotation);
-                entities.AddLast(newTail);
-                bGrow = false;
-            }
-            frameCounter = framesBetweenMoves;
-        }
-        else
-        {
-            frameCounter--;
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "Player")
         {
-            //Vector3 tailPosition = entities.Last.Value.transform.position;
-            //var newTail = entities.AddLast(snakeEntity);
-            //newTail.Value.transform.position = tailPosition;
             bGrow = true;
             Destroy(other.gameObject);
         }
