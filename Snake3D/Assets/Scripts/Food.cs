@@ -13,7 +13,7 @@ public class Food : MonoBehaviour {
 
     [SerializeField] float time;
     [SerializeField] float repeatRate;
-
+    bool isSpawned;
     // Use this for initialization
     void Start () {
 		
@@ -21,15 +21,21 @@ public class Food : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        InvokeRepeating("Spawn",time,repeatRate);
+        if (!isSpawned)
+        {
+            Spawn();
+        }
+        
 	}
 
     void Spawn()
     {
+        
         int z = (int)Random.Range(botBorder.position.z,topBorder.position.z);
 
         int x = (int)Random.Range(leftBorder.position.x, rightBorder.position.x);
 
         Instantiate(FoodPrefab, new Vector3(x, 0, z), Quaternion.identity);
+        isSpawned = true;
     }
 }
