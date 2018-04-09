@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] int framesBetweenMoves;
     int frameCounter;
 
+    bool bGrow = false;
+
     LinkedList<GameObject> entities = new LinkedList<GameObject>();
     
     public enum Direction
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviour {
             entities.RemoveLast();
             var newFirst = entities.AddFirst(snakeEntity);
             newFirst.Value.transform.position = entities.First.Value.transform.position;
+            Vector3 oldPos = entities.Last.Value.gameObject.transform.position;
             switch (playerDirection)
             {
                 case Direction.up:
@@ -103,6 +106,12 @@ public class PlayerController : MonoBehaviour {
                     newFirst.Value.transform.position += Vector3.right;
                     break;
             }
+            if(bGrow)
+            {
+                GameObject newTail = Instantiate(snakeEntity, new Vector3(oldPos.x, 0f, oldPos.z), entities.Last.Value.transform.rotation);
+                entities.AddLast(newTail);
+                bGrow = false;
+            }
             frameCounter = framesBetweenMoves;
         }
         else
@@ -111,11 +120,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.tag != "Player")
+        if (other.gameObject.tag != "Player")
         {
-            entities.AddLast(snakeEntity);
+            //Vector3 tailPosition = entities.Last.Value.transform.position;
+            //var newTail = entities.AddLast(snakeEntity);
+            //newTail.Value.transform.position = tailPosition;
+            bGrow = true;
+            Destroy(other);
         }
         else
         {
