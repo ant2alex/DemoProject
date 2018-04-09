@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    [SerializeField] Sprite spriteToUse;
+    [SerializeField] GameObject snakeEntity;
     [SerializeField] int framesBetweenMoves;
     int frameCounter;
 
-    LinkedList<Sprite> entities = new LinkedList<Sprite>();
+    LinkedList<GameObject> entities = new LinkedList<GameObject>();
     
     public enum Direction
     {
@@ -24,42 +24,83 @@ public class PlayerController : MonoBehaviour {
     {
         if (entities.Count <= 0)
         {
-            entities.AddFirst(spriteToUse);
+            entities.AddFirst(snakeEntity);
         }
     }
 
-    // Use this for initialization
-    void Start () {
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            switch(playerDirection)
+            {
+                case Direction.right:
+                    playerDirection = Direction.down;
+                    break;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+                case Direction.down:
+                    playerDirection = Direction.left;
+                    break;
+
+                case Direction.left:
+                    playerDirection = Direction.up;
+                    break;
+
+                case Direction.up:
+                    playerDirection = Direction.right;
+                    break;
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            switch (playerDirection)
+            {
+                case Direction.right:
+                    playerDirection = Direction.up;
+                    break;
+
+                case Direction.down:
+                    playerDirection = Direction.right;
+                    break;
+
+                case Direction.left:
+                    playerDirection = Direction.down;
+                    break;
+
+                case Direction.up:
+                    playerDirection = Direction.left;
+                    break;
+            }
+        }
+    }
 
     private void LateUpdate()
     {
         if (frameCounter <= 0)
         {
             entities.RemoveLast();
+            var newFirst = entities.AddFirst(snakeEntity);
+            newFirst.Value.transform.position = entities.First.Value.transform.position;
             switch (playerDirection)
             {
                 case Direction.up:
                     // Take the last block and put it above the first object
-                    entities.AddFirst(spriteToUse);
+                    newFirst.Value.transform.position += Vector3.forward;
                     break;
 
                 case Direction.down:
                     // Take the last block and put it beneath the first object
+                    newFirst.Value.transform.position += Vector3.back;
                     break;
 
                 case Direction.left:
                     // Take the last block and put it to the left of the first object
+                    newFirst.Value.transform.position += Vector3.left;
                     break;
 
                 case Direction.right:
                     // Take the last block and put it to the right of the first object
+                    newFirst.Value.transform.position += Vector3.right;
                     break;
             }
             frameCounter = framesBetweenMoves;
@@ -74,7 +115,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.tag != "Player")
         {
-            entities.AddLast(spriteToUse);
+            entities.AddLast(snakeEntity);
         }
         else
         {
