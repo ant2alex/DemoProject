@@ -51,10 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47fb7f3296153e4c891c0e7e3d33a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoodPrefab: {fileID: 1977595897795548, guid: 328cce3a3b42adb4cbe6e0ff75ed938e, type: 2}
-  topBorder: {fileID: 0}
-  botBorder: {fileID: 0}
-  leftBorder: {fileID: 0}
-  rightBorder: {fileID: 0}
+  FoodPrefab: {fileID: 1803591228268868, guid: 5a93a910f59318743aee15aca0c317af, type: 2}
+  topBorder: {fileID: 4238158921905952, guid: bef924c89df856c4f8d8e968339d68b5, type: 2}
+  botBorder: {fileID: 4742571603803544, guid: c51ec72171df33b4ebb979690dcdb402, type: 2}
+  leftBorder: {fileID: 4196931686226226, guid: e5871099ca02dcb479e358d401fd79ca, type: 2}
+  rightBorder: {fileID: 4793337468687862, guid: 0a787aab6756a6345bdfb4cbb445fe40,
+    type: 2}
   time: 5
   repeatRate: 10
