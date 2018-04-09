@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114773656990981274}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,4 +108,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snakeEntity: {fileID: 1702995458881870}
-  framesBetweenMoves: 60
+  framesBetweenMoves: 20
