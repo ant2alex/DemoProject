@@ -8,8 +8,6 @@ public class SnakeController : MonoBehaviour {
     [SerializeField] int framesBetweenMoves;
     int frameCounter;
 
-    bool bGrow = false;
-
     LinkedList<GameObject> entities = new LinkedList<GameObject>();
 
     public enum Direction
@@ -38,10 +36,11 @@ public class SnakeController : MonoBehaviour {
     
     private void Update()
     {
+        ReadInput();
         if (frameCounter <= 0)
         {
             // Add a new entity as a head
-            GameObject newHead = Instantiate(snakeEntity, transform.position, transform.rotation);
+            GameObject newHead = Instantiate(snakeEntity, entities.First.Value.gameObject.transform.position, transform.rotation);
             newHead.transform.parent = gameObject.transform;
             entities.AddFirst(newHead);
 
@@ -67,13 +66,6 @@ public class SnakeController : MonoBehaviour {
                 case Direction.right:
                     newHead.transform.position += Vector3.right;
                     break;
-            }
-            if (bGrow)
-            {
-                GameObject newTail = Instantiate(snakeEntity, new Vector3(oldPos.x - 1, 0f, oldPos.z), entities.Last.Value.transform.rotation);
-                newTail.transform.parent = gameObject.transform;
-                entities.AddLast(newTail);
-                bGrow = false;
             }
             frameCounter = framesBetweenMoves;
         }
@@ -133,7 +125,10 @@ public class SnakeController : MonoBehaviour {
     {
         if (other.gameObject.tag != "Player")
         {
-            bGrow = true;
+            print("hit shit");
+            GameObject newTail = Instantiate(snakeEntity, transform.position, transform.rotation);
+            newTail.transform.parent = gameObject.transform;
+            entities.AddLast(newTail);
             Destroy(other.gameObject);
         }
         else
