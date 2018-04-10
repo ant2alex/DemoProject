@@ -154,4 +154,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snakeEntity: {fileID: 1611116107061530, guid: e119095ed47f42449ba66622b7c71918,
     type: 2}
-  framesBetweenMoves: 5
+  framesBetweenMoves: 10

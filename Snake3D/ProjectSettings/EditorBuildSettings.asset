@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Henry.unity
     guid: 428eeb247d4cd7e4a8c68ed977d69b6e
   - enabled: 1
-    path: Assets/Scene1.unity
-    guid: 2b3f7317c3d5e1640ab502be2595d31a
+    path: Assets/BeneScene.unity
+    guid: a0cb43c41861ae241b456e6ef0bd1e95
