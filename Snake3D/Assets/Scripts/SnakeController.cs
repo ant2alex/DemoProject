@@ -131,7 +131,7 @@ public class SnakeController : MonoBehaviour {
 
     public void Expand()
     {
-        GameObject newTail = Instantiate(snakeEntity, transform.position, transform.rotation);
+        GameObject newTail = Instantiate(snakeEntity, entities.First.Value.gameObject.transform.position, transform.rotation);
         newTail.transform.parent = gameObject.transform;
         entities.AddLast(newTail);
     }

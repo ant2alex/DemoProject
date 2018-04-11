@@ -8,7 +8,8 @@ public class PickUpController : MonoBehaviour {
 
     private void Awake()
     {
-        GameObject.FindGameObjectWithTag("Player");
+        snake = GameObject.FindGameObjectWithTag("Player");
+        print("Search player");
     }
 
     private void Update()
