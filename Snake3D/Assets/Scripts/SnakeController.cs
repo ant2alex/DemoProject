@@ -57,6 +57,7 @@ public class SnakeController : MonoBehaviour {
             entities.RemoveLast();
 
             Vector3 oldPos = entities.Last.Value.gameObject.transform.position;
+            //newHead.transform.position += newHead.transform.forward;
             switch (playerDirection)
             {
                 case Direction.up:
@@ -87,6 +88,7 @@ public class SnakeController : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            //entities.First.Value.gameObject.transform.Rotate(new Vector3(0, 90));
             switch (playerDirection)
             {
                 case Direction.right:
@@ -108,6 +110,7 @@ public class SnakeController : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            //entities.First.Value.gameObject.transform.Rotate(new Vector3(0, -90));
             switch (playerDirection)
             {
                 case Direction.right:
