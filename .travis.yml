@@ -6,7 +6,6 @@ before_install:
 - chmod a+x ./install.sh
 - chmod a+x ./build.sh
 install:
-- travis_wait mvn install
 - ./install.sh
 script:
 - ./build.sh
