@@ -7,7 +7,8 @@ public class PickUpController : MonoBehaviour {
     GameObject snake;
     Food foodScript;
     GameObject foodManager;
-   
+    [SerializeField] AudioClip eat;
+
     private void Awake()
     {
         snake = GameObject.FindGameObjectWithTag("Player");
@@ -24,7 +25,9 @@ public class PickUpController : MonoBehaviour {
         {
             snake.GetComponent<SnakeController>().Expand();
             foodScript.isSpawned = false;
+            AudioSource.PlayClipAtPoint(eat,gameObject.transform.position);
             Destroy(gameObject);
         }
+        
     }
 }
