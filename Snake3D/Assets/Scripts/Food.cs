@@ -10,10 +10,11 @@ public class Food : MonoBehaviour {
     public Transform botBorder;
     public Transform leftBorder;
     public Transform rightBorder;
+    float targetTime = 3f;
 
     [SerializeField] float time;
     [SerializeField] float repeatRate;
-    bool isSpawned;
+    public bool isSpawned;
     // Use this for initialization
     void Start () {
 		
@@ -25,17 +26,26 @@ public class Food : MonoBehaviour {
         {
             Spawn();
         }
-        
+        Debug.Log(targetTime);
 	}
 
     void Spawn()
     {
-        
+        if (targetTime <= 0)
+        {
+
         int z = (int)Random.Range(botBorder.position.z,topBorder.position.z);
 
         int x = (int)Random.Range(leftBorder.position.x, rightBorder.position.x);
 
         Instantiate(FoodPrefab, new Vector3(x, 0, z), Quaternion.identity);
         isSpawned = true;
+        
+        }
+        if(isSpawned == true)
+        {
+            targetTime = 3f;
+        }
+        targetTime -= Time.deltaTime;
     }
 }
