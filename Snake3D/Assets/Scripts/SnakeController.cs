@@ -41,9 +41,29 @@ public class SnakeController : MonoBehaviour {
             entities.AddFirst(transform.GetChild(0).gameObject);
         }
     }
+
+    void CheckIfEatingSelf()
+    {
+        foreach(GameObject obj in entities)
+        {
+            if(entities.First.Value.gameObject != obj)
+            {
+                if (entities.First.Value.gameObject.transform.position == obj.transform.position)
+                {
+                    Die();
+                }
+            }
+        }
+    }
+
+    void Die()
+    {
+        print("Die");
+    }
     
     private void Update()
     {
+        CheckIfEatingSelf();
         ReadInput();
         if (frameCounter <= 0)
         {

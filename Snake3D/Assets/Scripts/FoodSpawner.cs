@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Food : MonoBehaviour {
+public class FoodSpawner : MonoBehaviour {
 
     public GameObject FoodPrefab;
 
@@ -15,10 +15,6 @@ public class Food : MonoBehaviour {
     [SerializeField] float time;
     [SerializeField] float repeatRate;
     public bool isSpawned;
-    // Use this for initialization
-    void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,7 +22,7 @@ public class Food : MonoBehaviour {
         {
             Spawn();
         }
-        Debug.Log(targetTime);
+        //Debug.Log(targetTime);
 	}
 
     void Spawn()

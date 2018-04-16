@@ -5,16 +5,16 @@ using UnityEngine;
 public class PickUpController : MonoBehaviour {
 
     GameObject snake;
-    Food foodScript;
+    FoodSpawner foodScript;
     GameObject foodManager;
     [SerializeField] AudioClip eat;
 
     private void Awake()
     {
         snake = GameObject.FindGameObjectWithTag("Player");
-        print("Search player");
+        //print("Search player");
         foodManager = GameObject.Find("FoodController");
-        foodScript = foodManager.GetComponent<Food>();
+        foodScript = foodManager.GetComponent<FoodSpawner>();
        
         
     }
