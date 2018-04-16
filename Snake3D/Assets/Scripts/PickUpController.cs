@@ -5,11 +5,17 @@ using UnityEngine;
 public class PickUpController : MonoBehaviour {
 
     GameObject snake;
-
+    Food foodScript;
+    GameObject foodManager;
+   
     private void Awake()
     {
         snake = GameObject.FindGameObjectWithTag("Player");
         print("Search player");
+        foodManager = GameObject.Find("FoodController");
+        foodScript = foodManager.GetComponent<Food>();
+       
+        
     }
 
     private void Update()
@@ -17,6 +23,7 @@ public class PickUpController : MonoBehaviour {
         if (transform.position == snake.GetComponent<SnakeController>().Entities.First.Value.transform.position)
         {
             snake.GetComponent<SnakeController>().Expand();
+            foodScript.isSpawned = false;
             Destroy(gameObject);
         }
     }
