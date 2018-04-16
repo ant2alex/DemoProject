@@ -46,7 +46,7 @@ public class SnakeController : MonoBehaviour {
     {
         foreach(GameObject obj in entities)
         {
-            if(entities.First.Value.gameObject != obj)
+            if(entities.First.Value.gameObject != obj && obj.GetComponent<MeshRenderer>().enabled == true)
             {
                 if (entities.First.Value.gameObject.transform.position == obj.transform.position)
                 {
@@ -156,6 +156,7 @@ public class SnakeController : MonoBehaviour {
     {
         GameObject newTail = Instantiate(snakeEntity, entities.First.Value.gameObject.transform.position, transform.rotation);
         newTail.transform.parent = gameObject.transform;
+        newTail.GetComponent<MeshRenderer>().enabled = false;
         entities.AddLast(newTail);
     }
 
